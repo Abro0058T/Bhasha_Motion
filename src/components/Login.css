@@ -1,0 +1,71 @@
+.Login{
+    height: 735px;
+    width: 99.8%;
+    /* border: 2px solid red; */
+}
+.text{
+    margin: 5px 5px;
+    color: #E1B674;
+    font-size: 30px;
+    font-weight: 400;
+}
+.heading{
+    width: 80%;
+    margin-top: 10px;
+    height: 60px;
+    display: flex;
+    /* margin-bottom: 10px; */
+    justify-content: center;
+    border-bottom: 2px solid #44405D;
+}
+.center{
+    display: flex;
+    justify-content: center;
+}
+.Lc{
+    height: 650px;
+    width: 100%;
+    display: flex;
+    /* background-color: #44405D; */
+}
+.Lc1{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Lc2{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Lc2 img{
+    height: 550px;
+    width: 500px;
+}
+.googlebtn{
+    height: 40px;
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid black;
+    /* border: none; */
+    cursor: pointer;
+    font-size: 20px;
+    color: black;
+    border-radius: 5px;
+}
+.forml{
+    display: flex;
+    padding: 5px 5px;   
+    flex-direction: column;
+    width: 40%;
+    /* border: 2px solid red; */
+}
+.Lc1 h2{
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 5px;
+    color: #44405D;
+}
