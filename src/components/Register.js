@@ -23,7 +23,7 @@ const Register = () => {
         first_name:"",
         last_name:"",
         email:"",
-        aadhar_no:"",
+        aadhaar_no:"",
         password:"",
         confirm_password:"",
     })
@@ -36,7 +36,7 @@ const Register = () => {
 
     const handlesubmit = async (e) =>{
         e.preventDefault();
-        if(data?.first_name == '' || data?.last_name == "" || data?.email == "" || data?.aadhar_no == "" || data?.password == "" || data?.confirm_password == ""){
+        if(data?.first_name == '' || data?.last_name == "" || data?.email == "" || data?.aadhaar_no == "" || data?.password == "" || data?.confirm_password == ""){
             toast.error("Fill all details");
             return ;
         }
@@ -73,7 +73,7 @@ const Register = () => {
                         <label htmlFor="">Email</label>
                         <input type="text" name='email' value={data.email} onChange={handlechange}/>
                         <label htmlFor="">Aadhar Number</label>
-                        <input type="text" name='aadhar_no' value={data.aadhar_no} onChange={handlechange}/>
+                        <input type="text" name='aadhaar_no' value={data.aadhaar_no} onChange={handlechange}/>
                         <label htmlFor="">Password</label>
                         <input type="text" name='password' value={data.password} onChange={handlechange}/>
                         <label htmlFor="">Confirm Password</label>

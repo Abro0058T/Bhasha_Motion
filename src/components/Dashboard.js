@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import "./Dashboard.css";
 import req from "../assests/Group (2).png";
 import his from "../assests/Vector (15).png";
@@ -16,10 +16,40 @@ import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import me from "../assests/image 4 (1).png";
 import { Bar } from "react-chartjs-2";
+import {useDispatch} from "react-redux"
 
 const Dashboard = () => {
+
+  const headers = new Headers({
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json', // Adjust the content type if needed
+  });
+  
+  const request = new Request('/api', {
+    method: 'GET', // Use 'POST', 'PUT', 'DELETE', etc. for other types of requests
+    headers: headers,
+  });
+
+  fetch(request)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // H  andle the data returned by the API
+    console.log('API response:', data);
+  })
+  .catch(error => {
+    // Handle any errors that occurred during the fetch
+    console.error('There was a problem with the fetch operation:', error);
+  });
+
+
   const [popup, setpopup] = useState(false);
   const [hist, sethis] = useState(false);
+
   const handlepopup = () => {
     setpopup(true);
   };

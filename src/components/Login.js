@@ -21,7 +21,7 @@ const Login = () => {
 
   const [ldata, setldata] = useState({
     email: "",
-    Password: "",
+    password: "",
   });
   const handleChange = (e) => {
     setldata({ ...ldata, [e.target.name]: e.target.value });
@@ -37,7 +37,7 @@ const Login = () => {
 
   const handlelogin = async (e) =>{
     e.preventDefault();
-    if (ldata.email == "" || ldata.Password == "") {
+    if (ldata.email == "" || ldata.password == "") {
       toast.error("Fill all details")
       return;
     }
@@ -67,9 +67,9 @@ const Login = () => {
               onChange={handleChange}
               name="email"  />
                         <label htmlFor="">Password</label>
-                        <input type="text" value={ldata.Password}
+                        <input type="text" value={ldata.password}
               onChange={handleChange}
-              name="Password" />
+              name="password" />
                         <button className='create' onClick={handlelogin}>Sign In</button>
                         <h3 className='txt'>Is this your first time?</h3>
                         <button className='googlebtn' onClick={handlenavigate}>Sign In With Google</button> 
