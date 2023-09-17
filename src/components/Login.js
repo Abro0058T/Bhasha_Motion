@@ -71,7 +71,7 @@ const Login = () => {
               onChange={handleChange}
               name="Password" />
                         <button className='create' onClick={handlelogin}>Sign In</button>
-                        <h3 className='txt'>Already A user ?</h3>
+                        <h3 className='txt'>Is this your first time?</h3>
                         <button className='googlebtn' onClick={handlenavigate}>Sign In With Google</button> 
                         <button className='signinbtn' onClick={handlenavigate}>Create Account</button> 
                     </div>

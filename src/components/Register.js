@@ -79,7 +79,7 @@ const Register = () => {
                         <label htmlFor="">Confirm Password</label>
                         <input type="text" name='confirm_password' value={data.confirm_password} onChange={handlechange}/>
                         <button className='create' onClick={handlesubmit}>Create Account</button>
-                        <h3 className='txt'>Already A user ?</h3>
+                        <h3 className='txt'>Are you a user?</h3>
                         <button className='signinbtn' onClick={handlenavigate}>Sign In</button> 
                     </div>
                 </div>
