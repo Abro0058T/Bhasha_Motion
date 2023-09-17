@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const Api = axios.create({
-    baseURL :"https://7eec-2409-40d0-10cd-c36f-4cd1-800e-73df-f372.ngrok-free.app/"
-    // baseURL :"http://localhost:5000/"
+    baseURL :"/api"
 })
 
 Api.defaults.headers.common['ngrok-skip-browser-warning'] = '404';
