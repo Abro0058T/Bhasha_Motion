@@ -14,7 +14,7 @@ const Register = () => {
     const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
     console.log(isAuthenticated);
     useEffect(()=>{
-      if(isAuthenticated != false){
+      if(isAuthenticated != false && isAuthenticated != null ){
         navigate('/dashboard');
       }
     },[])

@@ -14,7 +14,7 @@ const Login = () => {
   const {isAuthenticated}  = useSelector((state) => ({ ...state.auth }));
   console.log(isAuthenticated);
   useEffect(()=>{
-    if(isAuthenticated != false){
+    if(isAuthenticated != false  && isAuthenticated != null){
       navigate('/dashboard');
     }
   },[])
@@ -47,8 +47,8 @@ const Login = () => {
       toast.error("Invalid email")
       return;
     }
-
-    await dispatch(authlogin({ ldata, navigate }));
+    
+    await dispatch(authlogin({ ldata, navigate }))
   }
   return (
     <div className='Login'>

@@ -1,4 +1,5 @@
-import React, { useState ,useEffect} from "react";
+
+import React, { useState ,useEffect , useRef} from "react";
 import "./Dashboard.css";
 import req from "../assests/Group (2).png";
 import his from "../assests/Vector (15).png";
@@ -16,43 +17,112 @@ import { BsFillArrowDownLeftCircleFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import me from "../assests/image 4 (1).png";
 import { Bar } from "react-chartjs-2";
-import {useDispatch} from "react-redux"
+import {useDispatch,useSelector} from "react-redux"
+import {fetchDataWithAccessToken} from '../redux/api.js'
+import { useNavigate } from "react-router";
+import {get_all_videos} from '../redux/features/VideoSlice'
+import {get_by_id} from '../redux/features/VideoSlice'
+import {get_video_status} from '../redux/features/VideoSlice'
+import ReactPlayer from 'react-player';
 
 const Dashboard = () => {
-
-  const headers = new Headers({
-    'Authorization': `Bearer ${accessToken}`,
-    'Content-Type': 'application/json', // Adjust the content type if needed
-  });
-  
-  const request = new Request('/api', {
-    method: 'GET', // Use 'POST', 'PUT', 'DELETE', etc. for other types of requests
-    headers: headers,
-  });
-
-  fetch(request)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    // H  andle the data returned by the API
-    console.log('API response:', data);
-  })
-  .catch(error => {
-    // Handle any errors that occurred during the fetch
-    console.error('There was a problem with the fetch operation:', error);
-  });
-
-
   const [popup, setpopup] = useState(false);
-  const [hist, sethis] = useState(false);
+  const playerRef = useRef(null);
+  const [hist, sethis] = useState(false); 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {data} = useSelector((state) => ({ ...state?.auth?.data}));
+  const isAuthenticated  = localStorage.getItem('auth1');
+  useEffect(()=>{
+    if(isAuthenticated === false || isAuthenticated == null){
+      navigate('/login');
+    }
+  },[isAuthenticated])
+  const accessToken = data?.access_token;
+  console.log(accessToken)
+  const [data1,setdata] = useState(null);
+  useEffect(()=>{
+  if(accessToken){
+    fetchDataWithAccessToken(accessToken)
+    .then(response => {
+      // Handle the data returned by the API
+      console.log('Dashboard data:', response.data);
+      setdata(response.data);
+    })
+    .catch(error => {
+      // Handle any errors that occurred during the request
+      console.error('There was a problem with the request:', error);
+      if(error.response.data.detail === "Could not validate credentials/Token expired"){
+        localStorage.clear();
+        window.location.reload();
+      }
+    });
+  }
+},[accessToken])
 
-  const handlepopup = () => {
+let {video_list} = useSelector((state) => ({ ...state?.video}));
+const {video_stats} = useSelector((state) => ({ ...state?.video}));
+
+console.log(video_list?.videos)
+
+const video_statss =
+  {
+    "total_videos": 10,
+    "total_accepted": 4,
+    "total_rejected": 3,
+    "total_pending": 3
+  }
+
+// const video_lists = [
+//   {
+//     prid:1234,
+//     status:"pending",
+//     url:"https://www.youtube.com/watch?v=Epy3ivrG8ss",
+//     edit_history:[],
+//     user_email:"nipun@gmail.com",
+//     datetime:"17/09/2023 18:20:09",
+//     ministry_name:"Prime Minister's Office",
+//     heading:"Prime Minister condoles the demise of eminent author and Odisha Chief Minister’s sister, Smt. Gita Mehta",
+//     images:[],
+//     text_list:[],
+//     language:"english",
+//     release_language:["string"]
+//   },
+//   {
+//     prid:1234,
+//     status:"pending",
+//     url:"https://www.youtube.com/watch?v=Epy3ivrG8ss",
+//     edit_history:[],
+//     user_email:"nipun@gmail.com",
+//     datetime:"17/09/2023 18:20:09",
+//     ministry_name:"Prime Minister's Office",
+//     heading:"Prime Minister condoles the demise of eminent author and Odisha Chief Minister’s sister, Smt. Gita Mehta",
+//     images:[],
+//     text_list:[],
+//     language:"english",
+//     release_language:["string"]
+//   },
+// ]
+
+useEffect(()=>{
+  dispatch(get_all_videos(accessToken))
+  dispatch(get_video_status(accessToken))
+},[])
+
+var filteredObject;
+const [value,setvalue] = useState("")
+
+const handlepopup = (prid) => {
     setpopup(true);
+    console.log("***************************")
+    console.log(prid)
+    console.log(video_list?.videos[0])
+    filteredObject = video_list?.videos?.find(obj => obj.prid === prid);
+    console.log(filteredObject)
+    setvalue(filteredObject?.url)
+    dispatch(get_by_id(prid))
   };
+  console.log(value)
 
   const closePopup = () => {
     setpopup(false);
@@ -64,6 +134,19 @@ const Dashboard = () => {
   const setreq = () => {
     sethis(false);
   };
+
+  const handleEdit = () =>{
+    navigate('/edit')
+  }
+
+  const handlelogout = (e) =>{
+    e.preventDefault();
+    localStorage.clear();
+    // navigate('/login')
+    window.location.reload();
+  }
+
+  console.log(data1)
   return (
     <div className="dash">
       <div className="toggle">
@@ -79,19 +162,21 @@ const Dashboard = () => {
             <h3>History</h3>
           </div>
         </div>
-        <button className="logout">LogOut</button>
+        <button className="logout" onClick={handlelogout}>LogOut</button>
       </div>
       {popup && (
         <div className="container1">
           <div className="popup">
             <AiOutlineClose onClick={closePopup} className="close" />
-            <div className="video"></div>
+            <video className="video" width="640" height="360" controls>
+            <source src='https://res.cloudinary.com/dsztz2gsf/video/upload/v1695051070/uxhnwmcsiivudxxz4fvg.mp4' type="video/mp4"/>
+            </video>
             <div className="edit">
               <div className="rej">
                 <button className="rejbtn">Reject</button>
               </div>
               <div>
-                <button className="editbtn">Edit</button>
+                <button className="editbtn" onClick={handleEdit}>Edit</button>
                 <button className="Accbtn">Accept</button>
               </div>
             </div>
@@ -101,7 +186,7 @@ const Dashboard = () => {
       <div className="section">
         <div className="topbar">
           <div className="myname">
-            <h2>Hello Ishan Gupta</h2>
+            <h2>Hello {data1?.first_name} {data1?.last_name}</h2>
             <h3>4:45 pm 19 Jan 2022</h3>
           </div>
           <div>
@@ -111,7 +196,7 @@ const Dashboard = () => {
           <div className="topend">
             <AiOutlineBell className="bell" />
             <div className="admin">
-              <h2>Ishan Gupta</h2>
+              <h2> {data1?.first_name} {data1?.last_name}</h2>
               <h3>Admin</h3>
             </div>
             <img src={me} alt="" />
@@ -121,44 +206,44 @@ const Dashboard = () => {
               <div className="mid1">
                 <div className="mid1i">
                   <h2>Total Collection</h2>
-                  <h3>25.1 k</h3>
-                  <div className="mid1id">
+                  <h3>{video_statss?.total_videos}</h3>
+                  {/* <div className="mid1id">
                     <BsFillArrowUpRightCircleFill className="circle" />
                     <h3>+15%</h3>
-                  </div>
+                  </div> */}
                 </div>
                 <img src={total} alt="" />
               </div>
               <div className="mid1">
                 <div className="mid1i">
                   <h2>Total Accepted</h2>
-                  <h3>3.5 k</h3>
-                  <div className="mid1id">
+                  <h3>{video_statss?.total_accepted}</h3>
+                  {/* <div className="mid1id">
                     <BsFillArrowUpRightCircleFill className="circle" />
                     <h3>+10%</h3>
-                  </div>
+                  </div> */}
                 </div>
                 <img src={Acce} alt="" />
               </div>
               <div className="mid1">
                 <div className="mid1i">
                   <h2>Total Rejected</h2>
-                  <h3>2.1 k</h3>
-                  <div className="mid1idr">
+                  <h3>{video_statss?.total_rejected}</h3>
+                  {/* <div className="mid1idr">
                     <BsFillArrowDownLeftCircleFill className="circler" />
-                    <h3>+10%</h3>
-                  </div>
+                    <h3>-10%</h3>
+                  </div> */}
                 </div>
                 <img src={Rej} alt="" />
               </div>
               <div className="mid1">
                 <div className="mid1i">
                   <h2>Total Pending</h2>
-                  <h3>2.67 k</h3>
-                  <div className="mid1idr">
+                  <h3>{video_statss?.total_pending}</h3>
+                  {/* <div className="mid1idr">
                     <BsFillArrowDownLeftCircleFill className="circler" />
-                    <h3>+10%</h3>
-                  </div>
+                    <h3>-10%</h3>
+                  </div> */}
                 </div>
                 <img src={Pend} alt="" />
               </div>
@@ -200,27 +285,23 @@ const Dashboard = () => {
     </thead>
     <br />
     <tbody>
-      <tr className="row">
-        <td>194878</td>
-        <td>75% Attendance</td>
-        <td>15/7/23</td>
-        <td>Education</td>
-        <td>
-          <button onClick={handlepopup}>View</button>
-        </td>
-        <td>Accept</td>
-      </tr>
+    {
+      video_list?.videos?.map((ele,index)=>{
+        return(
+          <tr className="content">
+          <td className="prid">{ele?.prid}</td>
+          <td className="tablehead">{ele?.heading}</td>
+          <td className="date">{ele?.datetime}</td>
+          <td className="ministry">{ele?.ministry_name}</td>
+          <td className="viewbtn">
+            <button onClick={()=>handlepopup(ele?.prid)}>View</button>
+          </td>
+          <td>{ele?.status}</td>
+        </tr>
+        )
+      })
+    }
       <br />
-      <tr className="row">
-        <td>194878</td>
-        <td>75% Attendance</td>
-        <td>15/7/23</td>
-        <td>Education</td>
-        <td>
-          <button onClick={handlepopup}>View</button>
-        </td>
-        <td>Accept</td>
-      </tr>
     </tbody>
   </table>
         </div>
@@ -237,7 +318,7 @@ const Dashboard = () => {
             </div>
             <div className="down">
               <div className="downup">
-                <h1>Vedio Status</h1>
+                <h1>Video Status</h1>
                 <img src={circle} alt="" />
                 <div className="status">
                   <div className="s1">
@@ -260,40 +341,35 @@ const Dashboard = () => {
               <div className="downdown">
                 {/* <h2>Requests</h2> */}
                 <h1 className="reqhead">Requests</h1>
-                <div className="head">
-                  <h1>Id</h1>
-                  <h1>Topic</h1>
-                  <h1>Date</h1>
-                  <h1>Ministry</h1>
-                  <h1>Preview</h1>
-                </div>
-                <div className="content">
-                  <h1>194878</h1>
-                  <h1>75% Attendance</h1>
-                  <h1>15/7/23</h1>
-                  <h1>Education</h1>
-                  <h1>
-                    <button onClick={handlepopup}>View</button>
-                  </h1>
-                </div>
-                <div className="content">
-                  <h1>194878</h1>
-                  <h1>75% Attendance</h1>
-                  <h1>15/7/23</h1>
-                  <h1>Education</h1>
-                  <h1>
-                    <button>View</button>
-                  </h1>
-                </div>
-                <div className="content">
-                  <h1>194878</h1>
-                  <h1>75% Attendance</h1>
-                  <h1>15/7/23</h1>
-                  <h1>Education</h1>
-                  <h1>
-                    <button>View</button>
-                  </h1>
-                </div>
+                <table className="table">
+                <thead>
+                <tr className="head">
+                  <th className="prid">Id</th>
+                  <th className="tablehead">Topic</th>
+                  <th className="date">Date</th>
+                  <th className="ministry">Ministry</th>
+                  <th>Preview</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                  video_list?.videos?.map((ele,index)=>{
+                    return(
+                      <tr className="content">
+                      <td className="prid">{ele?.prid}</td>
+                      <td className="tablehead">{ele?.heading}</td>
+                      <td className="date">{ele?.datetime}</td>
+                      <td className="ministry">{ele?.ministry_name}</td>
+                      <td className="viewbtn">
+                        <button onClick={()=>handlepopup(ele?.prid)}>View</button>
+                      </td>
+                    </tr>
+                    )
+                  })
+                }
+                <br/>
+                </tbody>
+                </table>
               </div>
             </div>
           </>

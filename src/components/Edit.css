@@ -1,0 +1,153 @@
+.editpage{
+    height: 735px;
+    width: 100%;
+    /* background-color: aquamarine; */
+    display: flex;
+}
+.leftedit{
+    width: 35%;
+    /* padding: 15px 15px; */
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Rightedit{
+    width: 65%;
+    height: 100%;
+    /* background-color: aqua; */
+}
+.imgone{
+    height: 240px;
+    width: 360px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.imagetwo{
+    height: 460px;
+    width: 350px;
+}
+.hrr{
+    height: 1px;
+    width: 90%;
+    margin-left: 40px;
+    /* border: none; */
+    background-color: 44405D;
+}
+.input_params{
+    width: 80%;
+    height: 70px;
+    display: flex;
+    margin-top: 20px;
+    /* border: 2px solid red; */
+    justify-content: space-around;
+    align-items: center;
+}
+.lang_input{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+.Voice_input{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+.option_select{
+    height: 30px;
+    margin-top:5px;
+    /* border: none; */
+    width: 300px;
+}
+.table_edit{
+    width: 95%;
+    height: 60%;
+    margin-left: 30px;
+    /* border: 2px solid red; */
+}
+.table_edit h1{
+    font-weight: 400;
+    font-size: 30px;
+    margin: 10px 10px;
+}
+.table_data_edit {
+    width:95%;
+    margin-left: 20px;
+    border-collapse: collapse;
+}
+
+/* Style for the table header */
+.table_head {
+    /* background-color: #333; */
+    color: #79788C;
+    font-size: 20px;
+}
+
+.table_head th {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style for table data cells */
+.table_data_edit td {
+    padding: 10px;
+}
+
+/* Style for the "Preview" cells */
+.table_data_edit td[colspan="2"] {
+    text-align: center;
+}
+
+/* Style for the "Remove" cell */
+.table_data_edit td:last-child {
+    text-align: center;
+    /* background-color: #ff0000; */
+    color: #ff0000;
+    cursor: pointer;
+}
+
+/* Hover effect for the "Remove" cell */
+.table_data_edit td:last-child:hover {
+    /* background-color: #cc0000; */
+    color: #cc0000;
+}
+.edu_btn{
+    height: 40px;
+    font-size: 18px;
+    width: 125px;
+    border-radius: 10px;
+    border:none;
+    margin-top: 5px;
+    background-color:#F99426;
+    color: white;
+}
+.table_body1{
+    border: 2px solid #A4A2AF;
+    /* display: flex; */
+    padding-top: 20px;
+    height: 50px;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+.topbar1{
+    width: 100%;
+    height: 90px;
+    /* background-color: bisque; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.Vedio_edit{
+    height: 50px;
+    width: 180px;
+    margin-left: 35px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #F99426;
+    color: white;
+}
