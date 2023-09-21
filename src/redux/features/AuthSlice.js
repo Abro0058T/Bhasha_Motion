@@ -4,12 +4,16 @@ import {toast} from 'react-toastify'
 
 export const authlogin = createAsyncThunk(
     'auth/login',
-    async ({ldata,navigate}, { rejectWithValue }) =>{
+    async ({ldata,navigate}, { rejectWithValue,dispatch }) =>{
       try {
-        const res = await api.AdminLogin(ldata);
+        const formData = new FormData();
+        formData.append('username', ldata.email);
+        formData.append('password', ldata.password);
+        console.log(formData);
+        const res = await api.AdminLogin(formData);
         console.log(res);
         toast.success("login successfully")
-        navigate('/dashboard');
+        navigate('/dashboard')
         return res;
       } catch (error) {
         console.log(error);
@@ -52,8 +56,8 @@ const AuthSlice = createSlice({
         setUser: (state, action) => {
             state.data = action.payload;
         },
-        login: (state , action) => {
-            state.isAuthenticated = action.payload.data.isauth;
+        setlogin: (state , action) => {
+            state.isAuthenticated = action.payload.data.access_token;
         },
         setLogout: (state) => {
             state.isAuthenticated = false;
@@ -64,20 +68,20 @@ const AuthSlice = createSlice({
     extraReducers:{
         [authlogin.pending]: (state, action) => {
             state.loading = true;
-          },
-          [authlogin.fulfilled]: (state, action) => {
-            state.loading = false;
-            localStorage.setItem("auth1", JSON.stringify(action.payload.data.token ));
-            localStorage.setItem("profile1", JSON.stringify({ ...action.payload }));
-            state.data = action.payload;
-            state.isAuthenticated = action.payload.data.token;
-          },
-          [authlogin.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-          },
+        },
+        [authlogin.fulfilled]: (state, action) => {
+          state.loading = false;
+          localStorage.setItem("auth1", JSON.stringify(action.payload.data.access_token ));
+          localStorage.setItem("profile1", JSON.stringify({ ...action.payload }));
+          state.data = action.payload;
+          state.isAuthenticated = action.payload.data.token;
+        },
+        [authlogin.rejected]: (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        },
     }
 })
-export const { setUser, setLogout } = AuthSlice.actions;
+export const { setUser,setlogin, setLogout } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

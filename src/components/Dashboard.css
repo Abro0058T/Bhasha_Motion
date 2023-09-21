@@ -56,6 +56,7 @@
     border: none;
     background-color: #48ADA5;
     color: white;
+    cursor: pointer;
 }
 .section{
     height: 100%;
@@ -277,54 +278,84 @@
     border-collapse: collapse;
     height: 90%;
     border-radius: 10px;
-
     width: 69%;
     background-color: #FFFFFF;
     /* margin-bottom: 20px;     */
     margin-left: 20px;
     padding: 5px 5px;
   }
-  
-  /* Style the table heading row */
-  .head {
+  .table{
     display: flex;
-    /* background-color: #333; */
-    height: 50px;
-    color: black;
-    margin-left: 5px;
-    margin-right: 5px;
+    /* border-collapse: separate; */
+    flex-direction: column;
     justify-content: space-between;
   }
   
-  .head h1 {
-    /* padding: 10px; */
-    padding-left: 10px;
-    font-weight: 400;
-    text-align: left;
-    font-size: 20px;
+  /* Style the table heading row */
+  .head {
+    height: 60px;
+    /* width: 100%; */
+    display: flex;
+    /* border: 2px solid #A4A2AF; */
+    /* border: 1px solid #A4A2AF; */
+    margin-bottom: 8px;
+    border-radius: 10px !important;
+    justify-content: space-around;
+    align-items: center;
+    /* margin-left: 5px ; */
+    /* margin-right: 5px; */
+  }
+  
+  .head th {
+    padding: 7px;
+    font-size: 20px !important;
+    width: 130px;
+    /* border: 2px solid black; */
+    /* font-size: 20px; */
     color: #79788C;
+    font-weight: 400;
   }
   .content{
     height: 60px;
+    /* width: 100%; */
     display: flex;
     /* border: 2px solid #A4A2AF; */
     border: 1px solid #A4A2AF;
     margin-bottom: 8px;
     border-radius: 10px !important;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin-left: 5px ;
-    margin-right: 5px;
+    /* margin-left: 5px ; */
+    /* margin-right: 5px; */
   }
   /* Style the table content rows */
-  .content h1 {
-    padding: 10px;
-    font-size: 18px;
+  .content td{
+    padding: 7px;
+    font-size: 15px !important;
+    width: 130px;
+    /* border: 2px solid black; */
     /* font-size: 20px; */
     color: #79788C;
     font-weight: 400;
   }
-  
+  .tablehead{
+    width: 330px !important;
+    margin-left: 20px;
+  }
+  .prid{
+    width: 40px !important;  
+  }
+  .date{
+    width: 139px !important;
+  }
+  .viewbtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ministry{
+    width: 150px !important;
+  }
   /* Style the "View" button */
   .content button {
     background-color: #F99426;
@@ -461,7 +492,7 @@
     height: 80%;
     width: 90%;
     margin-top: 15px;   
-    background-color: #44C285;
+    /* background-color: #44C285; */
   }
   .edit{
     width: 86.3%;
