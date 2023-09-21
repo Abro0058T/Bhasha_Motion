@@ -109,20 +109,22 @@ useEffect(()=>{
   dispatch(get_video_status(accessToken))
 },[])
 
-var filteredObject;
+// var filteredObject;
 const [value,setvalue] = useState("")
+let [filteredObject,setfilteredObject] = useState("")
 
 const handlepopup = (prid) => {
-    setpopup(true);
-    console.log("***************************")
-    console.log(prid)
+  setpopup(true);
+  console.log(prid)
+    // console.log(prid)
     console.log(video_list?.videos[0])
     filteredObject = video_list?.videos?.find(obj => obj.prid === prid);
-    console.log(filteredObject)
+    setfilteredObject(filteredObject)
     setvalue(filteredObject?.url)
-    dispatch(get_by_id(prid))
+    // dispatch(get_by_id(prid))
   };
   console.log(value)
+  console.log(filteredObject)
 
   const closePopup = () => {
     setpopup(false);
@@ -136,7 +138,8 @@ const handlepopup = (prid) => {
   };
 
   const handleEdit = () =>{
-    navigate('/edit')
+    console.log(filteredObject);
+    navigate('/edit',{state:{data:filteredObject}})
   }
 
   const handlelogout = (e) =>{
@@ -169,7 +172,7 @@ const handlepopup = (prid) => {
           <div className="popup">
             <AiOutlineClose onClick={closePopup} className="close" />
             <video className="video" width="640" height="360" controls>
-            <source src='https://res.cloudinary.com/dsztz2gsf/video/upload/v1695051070/uxhnwmcsiivudxxz4fvg.mp4' type="video/mp4"/>
+            <source src={value} type="video/mp4"/>
             </video>
             <div className="edit">
               <div className="rej">

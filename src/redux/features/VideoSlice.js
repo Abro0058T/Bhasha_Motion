@@ -32,6 +32,7 @@ export const get_video_status = createAsyncThunk(
 export const get_by_id = createAsyncThunk(
     'video/getbyid',
     async (prid) =>{
+        console.log(prid);
         try {
             const response = await api.getbyid(prid);
             console.log(response);
@@ -45,6 +46,7 @@ export const get_by_id = createAsyncThunk(
 export const edit_data = createAsyncThunk(
     'video/edit',
     async (editeddata) => {
+        console.log(editeddata)
         try {
             const response = await api.editbyid(editeddata);
             console.log(response);
@@ -55,12 +57,16 @@ export const edit_data = createAsyncThunk(
     }
 )
 
+const persistedState = localStorage.getItem('video_prid')
+  ?  JSON.parse(localStorage.getItem('video_prid')) : null;
+
+
 const VideoSlice = createSlice({
     name:"video",
     initialState:{
         loading:false,
         video_list : [],
-        video_by_id:null,
+        video_by_id:persistedState,
         video_stats:null
     },
     reducers:{
@@ -91,6 +97,8 @@ const VideoSlice = createSlice({
         },
         [get_by_id.fulfilled]: (state, action) => {
           state.loading = false;
+          console.log(typeof(action.payload))
+        //   localStorage.setItem("video_prid", JSON.stringify(action.payload ));
           state.video_by_id = action.payload;
         },
         [get_by_id.rejected]: (state, action) => {
