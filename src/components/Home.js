@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className="home">
       <nav className="navbar">
-        <h2><img src={logo} alt="" /></h2>
+        <h2><img className="img-logo" src={logo} alt="" /></h2>
         <div>
             <button className="signin" onClick={handlenavigate}>Sign in</button>
             <button className="signup" onClick={handlenavigate2}>Sign up</button>

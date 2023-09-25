@@ -55,7 +55,7 @@ const Login = () => {
     <div className='Login'>
       <div className='center'>
         <div className='heading'>
-        <h2 className='text'><img src={logo} alt="" /></h2>
+        <h2 className='text'>Bhasha Motion</h2>
         </div>
         </div>
         <div className='Lc'>
