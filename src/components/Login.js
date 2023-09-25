@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import './Login.css'
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
+import logo from '../assests/image 11.png'
 import { authlogin } from '../redux/features/AuthSlice';
 const Login = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const Login = () => {
     <div className='Login'>
       <div className='center'>
         <div className='heading'>
-        <h2 className='text'>GLOCAL EDITS</h2>
+        <h2 className='text'><img src={logo} alt="" /></h2>
         </div>
         </div>
         <div className='Lc'>

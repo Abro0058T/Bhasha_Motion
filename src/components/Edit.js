@@ -51,6 +51,13 @@ const Edit = () => {
     Images: []
   })
 
+  const imageUrls = editeddata.Images.map((item) => item.image);
+
+  setediteddata({
+    ...editeddata,
+    Images: imageUrls,
+  });
+
   // useEffect(()=>{
   //   if(editeddata?.Lang !== '' || editeddata?.Images !== ''){
   //     // dispatch(edit_data(editeddata))
@@ -140,7 +147,7 @@ const Edit = () => {
           <th colSpan="2">Preview</th>
         </thead>
         <tbody className="table_body">
-          {/* {
+          {
             image_list?.map((item,index)=>{
               return(
                 <>
@@ -154,7 +161,7 @@ const Edit = () => {
                 </>
               )
             }
-          )} */}
+          )}
           <br/>
         </tbody>
       </table>

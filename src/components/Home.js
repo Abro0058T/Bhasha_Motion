@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.css";
 import { useNavigate } from "react-router";
 import lap from '../assests/Floating 15_ Macbook Pro Mockup (1).png'
+import logo from '../assests/image 11.png'
 const Home = () => {
   const navigate = useNavigate();
   const handlenavigate = () => {
@@ -16,7 +17,7 @@ const Home = () => {
   return (
     <div className="home">
       <nav className="navbar">
-        <h2>GLOCAL EDITS</h2>
+        <h2><img src={logo} alt="" /></h2>
         <div>
             <button className="signin" onClick={handlenavigate}>Sign in</button>
             <button className="signup" onClick={handlenavigate2}>Sign up</button>
@@ -25,7 +26,7 @@ const Home = () => {
       <div className="container">
         <div className="c1">
         <div className="c11">
-            <h4>Welcome to Glocal Edits</h4>
+            <h4>Welcome to Bhasha Motion</h4>
             <h1>ULTIMATE VIDEO
                 GENERATOR</h1>
             <p>Make better, more compelling generative videos and

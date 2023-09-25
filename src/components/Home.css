@@ -17,6 +17,10 @@
     padding-right: 30px;
     align-items: center;
 }
+
+.navbar img{
+    margin-top: 10px;
+}
 .signin{
     height: 40px;
     width: 110px;

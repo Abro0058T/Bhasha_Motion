@@ -1,6 +1,7 @@
 
 import React, { useState ,useEffect , useRef} from "react";
 import "./Dashboard.css";
+import logo from '../assests/image 11.png'
 import req from "../assests/Group (2).png";
 import his from "../assests/Vector (15).png";
 import total from "../assests/Vector (16).png";
@@ -154,7 +155,7 @@ const handlepopup = (prid) => {
     <div className="dash">
       <div className="toggle">
         <div>
-          <h1>GLOCAL EDITS</h1>
+          <h1><img src={logo} alt="" /></h1>
           <hr />
           <div className="togglebtn" onClick={setreq}>
             <img src={req} alt="" />
